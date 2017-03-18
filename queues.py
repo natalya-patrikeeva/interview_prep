@@ -14,8 +14,10 @@ class Queue:
 
 
     def peek(self):
+        # return but don't remove first element
         l = self.storage
         return l[0]
+        # return self.storage[0]
 
 
     def dequeue(self):
@@ -23,6 +25,7 @@ class Queue:
         head = self.storage[0]
         self.storage = self.storage[1:]
         return head
+        # or return self.storage.pop(0)
 
 # Setup
 q = Queue(1)

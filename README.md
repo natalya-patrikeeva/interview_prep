@@ -1,1 +1,11 @@
-### Review of linked lists, stack, and queue and algorithms for technical interview prep 
+### Review for technical interview: 
+
+- #### list-based collections: linked lists, stacks, and queues 
+
+- #### searching and sorting algorithms  
+
+- #### maps and hashing 
+
+- #### trees 
+
+- #### graphs 
