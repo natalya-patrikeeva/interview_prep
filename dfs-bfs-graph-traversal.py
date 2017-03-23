@@ -1,4 +1,7 @@
-'''Write a recursive solution for DFS and an iterative solution for BFS.'''
+'''Write a recursive solution for DFS and an iterative solution for BFS.
+https://www.cs.usfca.edu/~galles/visualization/DFS.html
+https://www.cs.usfca.edu/~galles/visualization/BFS.html
+'''
 
 class Node(object):
     def __init__(self, value):
