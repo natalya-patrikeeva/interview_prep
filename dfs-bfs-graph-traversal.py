@@ -137,7 +137,7 @@ class Graph(object):
             node.visited = False
 
     def dfs_helper(self, start_node):
-        """TODO: Write the helper function for a recursive implementation
+        """Write the helper function for a recursive implementation
         of Depth First Search iterating through a node's edges. The
         output should be a list of numbers corresponding to the
         values of the traversed nodes.
@@ -146,7 +146,15 @@ class Graph(object):
         RETURN: a list of the traversed node values (integers).
         """
         ret_list = [start_node.value]
-        # Your code here
+        # print start_node.value
+        start_node.visited = True
+        for e in start_node.edges :
+            if e.node_from == start_node :  # node 2
+                next_node = e.node_to
+                # print next_node.value  # 3, 4, 5
+                while not next_node.visited :
+                    ret_list.extend(self.dfs_helper(next_node))
+
         return ret_list
 
     def dfs(self, start_node_num):
@@ -173,7 +181,32 @@ class Graph(object):
         node = self.find_node(start_node_num)
         self._clear_visited()
         ret_list = [node.value]
+
         # Your code here
+        max_index = self.find_max_index()
+        print "max index ", max_index
+        queue = [node]
+
+        print node.value
+        node.visited = True
+        for e in node.edges :
+            if e.node_from == node :
+                next_node = e.node_to
+                next_node.visited = True
+                queue.append(next_node)
+                print next_node.value
+
+        queue.pop(0)
+
+        node = self.find_node(queue[0].value)
+        for e in node.edges :
+            if e.node_from == node :
+                next_node = e.node_to
+                next_node.visited = True
+                queue.append(next_node)
+                print next_node.value
+
+
         return ret_list
 
     def bfs_names(self, start_node_num):
@@ -233,6 +266,7 @@ pp.pprint(graph.dfs_names(2))
 # ['London', 'Shanghai', 'Mountain View', 'San Francisco', 'Berlin', 'Sao Paolo']
 
 print "\nBreadth First Search"
+print "['London', 'Shanghai', 'Berlin', 'Sao Paolo', 'Mountain View', 'San Francisco']"
 pp.pprint(graph.bfs_names(2))
 # test error reporting
 # pp.pprint(['Sao Paolo', 'Mountain View', 'San Francisco', 'London', 'Shanghai', 'Berlin'])
