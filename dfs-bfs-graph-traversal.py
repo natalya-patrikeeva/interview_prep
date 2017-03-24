@@ -172,7 +172,7 @@ class Graph(object):
         return [self.node_names[num] for num in self.dfs(start_node_num)]
 
     def bfs(self, start_node_num):
-        """TODO: Create an iterative implementation of Breadth First Search
+        """Create an iterative implementation of Breadth First Search
         iterating through a node's edges. The output should be a list of
         numbers corresponding to the traversed nodes.
         ARGUMENTS: start_node_num is the node number (integer)
@@ -182,30 +182,18 @@ class Graph(object):
         self._clear_visited()
         ret_list = [node.value]
 
-        # Your code here
-        max_index = self.find_max_index()
-        print "max index ", max_index
         queue = [node]
+        for node in queue:
+            node.visited = True
 
-        print node.value
-        node.visited = True
-        for e in node.edges :
-            if e.node_from == node :
-                next_node = e.node_to
-                next_node.visited = True
-                queue.append(next_node)
-                print next_node.value
+            for e in node.edges :  # all edges from and to the node
+                if e.node_from == node :
+                    next_node = e.node_to
 
-        queue.pop(0)
-
-        node = self.find_node(queue[0].value)
-        for e in node.edges :
-            if e.node_from == node :
-                next_node = e.node_to
-                next_node.visited = True
-                queue.append(next_node)
-                print next_node.value
-
+                    while not next_node.visited :
+                        ret_list.append(next_node.value)
+                        next_node.visited = True
+                        queue.append(next_node) # append all nodes adjacent to the queue
 
         return ret_list
 
@@ -266,7 +254,6 @@ pp.pprint(graph.dfs_names(2))
 # ['London', 'Shanghai', 'Mountain View', 'San Francisco', 'Berlin', 'Sao Paolo']
 
 print "\nBreadth First Search"
-print "['London', 'Shanghai', 'Berlin', 'Sao Paolo', 'Mountain View', 'San Francisco']"
 pp.pprint(graph.bfs_names(2))
 # test error reporting
 # pp.pprint(['Sao Paolo', 'Mountain View', 'San Francisco', 'London', 'Shanghai', 'Berlin'])
