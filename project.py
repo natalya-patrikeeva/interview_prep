@@ -46,7 +46,7 @@ def question2(a) :
 
         mst_list.pop(0)
 
-        # Check if element is a palindrom 
+        # Check if element is a palindrom
         for each in mst_list:
             each  = list(each)
 
@@ -62,5 +62,30 @@ def question2(a) :
 
 
 # Test
-print question2("93138")
-print question2("696531358")
+# print question2("93138")
+# print question2("696531358")
+
+'''Question 3'''
+def question3(G):
+    return G
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Test
+G = {'A': [('B', 2)],
+     'B': [('A', 2), ('C', 5)],
+     'C': [('B', 5)]}
+
+print question3(G)
