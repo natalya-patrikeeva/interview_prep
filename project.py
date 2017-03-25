@@ -67,25 +67,87 @@ def question2(a) :
 
 '''Question 3'''
 def question3(G):
-    return G
+    # Array to keep track of known nodes
+    known = [False for i in range(len(G))]
+    # Array to keep track of weights
+    cost = [float('Inf') for i in range(len(G))]
+    # Path to assemble the minimum cost spanning tree
+    path = [-1 for i in range(len(G))]
 
+    vertex = G.keys()
+    vertex = sorted(vertex)   # sort alphabetically
+    cost[0] = 0
 
+    index = 0  # start with 'A' node
+    while (False in known) :
 
+        known[index] = True
+        # Update neighbors
+        for v in G[vertex[index]]:
+            if known[vertex.index(v[0])] == False and cost[vertex.index(v[0])] > v[1]:
+                cost[vertex.index(v[0])] = v[1]
+                path[vertex.index(v[0])] = index
 
+        # Find cheapest unknown vertex
+        minvalue = float('Inf')
+        for i in range(len(known)):
+            if known[i] == False and cost[i] < float('Inf'):
+                if minvalue > cost[i] :
+                    minvalue = cost[i]
+                    index = i
 
+    # print 'cost updated', cost
+    # print 'vertex array', vertex
+    # print 'path ', path
 
+    # Write out the minimum spanning tree
+    Ans = {}
+    for i, v in enumerate(vertex):
+        tmp = []
+        for j, p in enumerate(path):
+            if p == i:
+                tmp.append( (vertex[j], cost[j] ) )
 
+                # Check if node is already in the dictionary
+                if vertex[j] in Ans:
+                    Ans[vertex[j]].append( ( v, cost[j] ))
+                else:
+                    Ans[vertex[j]] = [(v, cost[j])]
 
+        # Check if node is already in the dictionary
+        if v in Ans :
+            if tmp != []:
+                Ans[v].extend( tmp )
+        else:
+            Ans[v] = tmp
+        # raw_input("Press Enter to continue...")
 
-
-
-
-
-
+    return Ans
 
 # Test
-G = {'A': [('B', 2)],
-     'B': [('A', 2), ('C', 5)],
-     'C': [('B', 5)]}
+# G = {'A': [('D', 2), ('E', 4)],
+#      'B': [('D', 6), ('F', 3)],
+#      'C': [('F', 4), ('G', 6)],
+#      'D': [('A', 2), ('B', 6)],
+#      'E': [('A', 4), ('G', 2), ('H', 2)],
+#      'F': [('B', 3), ('C', 4), ('G', 4)],
+#      'G': [('C', 6), ('E', 2), ('F', 4)],
+#      'H': [('E', 2)]}
+#
+# print question3(G)
 
-print question3(G)
+'''Question 4'''
+def question4(T, r, n1, n2):
+
+    return T
+
+# Test
+print "Should be 3"
+print question4([[0, 1, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [1, 0, 0, 0, 1],
+                [0, 0, 0, 0, 0]],
+                3,
+                1,
+                4)

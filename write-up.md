@@ -12,3 +12,7 @@ The efficiency of the algorithm is `O(n<sup>3</sup>)`, where `n` is the length o
 
 ### 3.
 
+To find the minimum spanning tree in a weighted undirected graph, I implement Prim's algorithm to traverse every node and edge at least once, following this [visualization](https://www.cs.usfca.edu/~galles/visualization/Prim.html). I keep track of what nodes are visited, the weights and the path from one node to another. I loop over all the nodes until we visit all the vertices and edges. The weights are stored in an array and searching through the array for the edge with the minimum weight requires O (|V|<sup>2</sup>) runtime. 
+
+#### 4.
+
