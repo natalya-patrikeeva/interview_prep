@@ -176,15 +176,67 @@ def question4(T, r, n1, n2):
 #                 1,
 #                 4)
 
-print "Should be 3"
-print question4([[0, 0, 0, 0, 0, 0, 0, 0],
-                 [0, 0, 0, 0, 0, 0, 0, 0],
-                 [0, 0, 0, 0, 0, 0, 0, 0],
-                 [1, 0, 0, 0, 1, 0, 0, 0],
-                 [0, 1, 0, 0, 0, 0, 0, 0],
-                 [0, 0, 0, 1, 0, 0, 1, 0],
-                 [0, 0, 1, 0, 0, 0, 0, 1],
-                 [0, 0, 0, 0, 0, 0, 0, 0]],
-                 5,
-                 0,
-                 4)
+# print question4([[0, 0, 0, 0, 0, 0, 0, 0],
+#                  [0, 0, 0, 0, 0, 0, 0, 0],
+#                  [0, 0, 0, 0, 0, 0, 0, 0],
+#                  [1, 0, 0, 0, 1, 0, 0, 0],
+#                  [0, 1, 0, 0, 0, 0, 0, 0],
+#                  [0, 0, 0, 1, 0, 0, 1, 0],
+#                  [0, 0, 1, 0, 0, 0, 0, 1],
+#                  [0, 0, 0, 0, 0, 0, 0, 0]],
+#                  5,
+#                  0,
+#                  4)
+
+'''Question 5'''
+class Node(object):
+  def __init__(self, data):
+    self.data = data
+    self.next = None
+
+def question5(ll, m):
+    '''Finds the element in a singly linked list that's m elements from the end.
+    Return the value of the node at that position.'''
+
+    stack = []
+    current = ll
+    while current.next:
+        stack.append(current.data)
+        current = current.next
+    stack.append(current.data)
+
+    return stack[ len(stack) - m ]
+
+# Test
+# For testing, create a linked list class
+# class LinkedList(object):
+#     def __init__(self, head=None):
+#         self.head = head
+#
+#     def append(self, new_element):
+#         current = self.head
+#         if self.head:
+#             while current.next:
+#                 current = current.next
+#             current.next = new_element
+#         else:
+#             self.head = new_element
+
+# And pass a linked list as an argument
+# def question5(ll, m, list):
+
+# Nodes to append to a linked list
+# n1 = Node(5)
+# n2 = Node(3)
+# n3 = Node(2)
+# n4 = Node(1)
+# n5 = Node(0)
+#
+# # Linked List
+# linked = LinkedList(n1)
+# linked.append(n2)
+# linked.append(n3)
+# linked.append(n4)
+# linked.append(n5)
+#
+# print question5(n1, 2, linked)

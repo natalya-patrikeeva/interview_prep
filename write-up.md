@@ -20,3 +20,4 @@ To find the least common ancestor on a BST, I search through the input matrix to
 
 ### 5.
 
+To find the element that is `m` elements from the end of a singly linked list, I loop over the linked list once to write the values of the elements to a Python list. Then I find the element's value based on the length of the list and the input `m` value. The efficiency of the algorithm is O(n) where n is the number of elements in the linked list.
