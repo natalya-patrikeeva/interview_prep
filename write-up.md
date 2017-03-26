@@ -16,3 +16,7 @@ To find the minimum spanning tree in a weighted undirected graph, I implement Pr
 
 #### 4.
 
+To find the least common ancestor on a BST, I search through the input matrix to find all parents of input nodes and store them in two lists. The root node is appended last. Then I compare entries in the lists to output the earliest common node which is the least common ancestor of two nodes. The efficiency of the algorithm is O (n<sup>2</sup>) because of the two `for` loops over the rows and columns of the input matrix. 
+
+### 5.
+

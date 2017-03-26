@@ -28,6 +28,8 @@ def question1(s, t):
 
 '''Question 2'''
 def question2(a) :
+    '''Given a string a,
+    find the longest palindromic substring contained in a.'''
     palydrome = ''
     a_list = list(a)
 
@@ -67,6 +69,7 @@ def question2(a) :
 
 '''Question 3'''
 def question3(G):
+    '''Given an undirected graph G, find the minimum spanning tree within G.'''
     # Array to keep track of known nodes
     known = [False for i in range(len(G))]
     # Array to keep track of weights
@@ -138,16 +141,50 @@ def question3(G):
 
 '''Question 4'''
 def question4(T, r, n1, n2):
+    '''Find the least common ancestor between two nodes
+     on a binary search tree.'''
+    n1_list = []
+    n2_list = []
+    while n1 != n2:
 
-    return T
+        for i in range(len(T)):
+            for ii, v in enumerate(T[i]):
+
+                # find parents of n1 and n2
+                if ii == n1 and v == 1:
+                    n1 = i
+                    n1_list.append(n1)
+                if ii == n2 and v == 1:
+                    n2 = i
+                    n2_list.append(n2)
+
+    # Search for least common ancestor
+    for n in n1_list:
+        if n in n2_list:
+            n1 = n
+            break
+    return n1
 
 # Test
+# print "Should be 3"
+# print question4([[0, 1, 0, 0, 0],
+#                 [0, 0, 1, 0, 0],
+#                 [0, 0, 0, 0, 0],
+#                 [1, 0, 0, 0, 1],
+#                 [0, 0, 0, 0, 0]],
+#                 3,
+#                 1,
+#                 4)
+
 print "Should be 3"
-print question4([[0, 1, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0],
-                [1, 0, 0, 0, 1],
-                [0, 0, 0, 0, 0]],
-                3,
-                1,
-                4)
+print question4([[0, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0],
+                 [1, 0, 0, 0, 1, 0, 0, 0],
+                 [0, 1, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 1, 0, 0, 1, 0],
+                 [0, 0, 1, 0, 0, 0, 0, 1],
+                 [0, 0, 0, 0, 0, 0, 0, 0]],
+                 5,
+                 0,
+                 4)
