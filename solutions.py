@@ -1,75 +1,95 @@
 '''Question 1'''
-from itertools import permutations
+from collections import Counter
+
 def question1(s, t):
-    ''' Given two strings s and t, this function checks wheather an anagram
-    of t is a substring of s.
-    Inputs: s, t
+    ''' Given two strings s and t, this function checks wheather
+     an anagram of t is a substring of s.
+    Inputs: strings s, t
     Output: True or False
     '''
-    # anagrams of t
-    t_anagrams = [list(x) for x in permutations(t, len(t) ) ]
-    anagram = ["".join(x) for x in t_anagrams ]
-    # print anagram
-    if t == "":
-        return False
+    # Create a dictionary to store letter counts in t
+    t = list(t)
+    counts_t = Counter(t)
+
+    # Possible substrings of s of varying lengths
+    s_substrings = []
+    for ii in range(0, len(s)):
+        string = s[ii:]
+        for i in range(1, len(string)+1):
+            s_substrings.append(string[:i])
+
+    # Compare counts of letters in t and in substrings of s
+    # If the count is the same, t is an anagram of a substring of s
+    for s in s_substrings:
+        if counts_t == Counter(s):
+            return True
     else:
-        # check if t is in s:
-        for i in anagram:
-
-            if i in s:
-                return True
-
         return False
 
 # Test
-print question1("udacity", "ad")
-# Should return True
-print question1("udacity", "g")
-# Should return False
-print question1("udacity", "")
+# print question1("udacity", "ad")
+# # Should return True
+# print question1("udacity", "g")
+# # # Should return False
+# print question1("udacity", "")
 # Should return False
 
 
 '''Question 2'''
 def question2(a) :
-    '''Given a string a,
-    find the longest palindromic substring contained in a.'''
+    '''Given a string a, find the longest palindromic
+     substring contained in a.
+     Input: string a
+     Output: longest palindromic substring in a'''
+
+    # Odd palindromes
+    # Loop over centers
     palindrome = ''
-    a_list = list(a)
-    for i in range(0, len(a)-1):
-        i_list = a_list[i:]
+    low = 0
+    high = 0
+    for i in range(1, len(a)-1):
+        # Odd palindromes
+        low = i-1
+        center = a[i]
+        high = i+1
 
-        # dummy lists
-        l = list()
-        mst_list = list()
+        if a[low] == a[high] :
+            palindrome = ''.join(a[low] + center + a[high])
 
-        for j in range(0, len(i_list)):
-            l.append(i_list[j])
-            elm = ''.join(l)
-            mst_list.append(elm)
+            while low > 0 and high <= len(a) and a[low] == a[high] :
 
-        mst_list.pop(0)
+                low -= 1
+                high +=1
 
-        # Check if element is a palindrom
-        for each in mst_list:
-            each  = list(each)
-
-            for i in range(0, len(each)-1):
-                if each[i] != each[len(each) - 1] :
-                    break
+                if a[low] == a[high] :
+                    palindrome = ''.join(a[low] + palindrome + a[high])
                 else:
-                    # Check if new palindrom is longer than the last
-                    if len(palindrome) < len(''.join(each) ) :
-                        palindrome = ''.join(each)
+                    break
+
+        # Even palindromes
+        low = i-1
+        high = i
+
+        if a[low] == a[high]:
+            palindrome = ''.join(a[low] + a[high])
+            while low > 0 and high <= len(a) and a[low] == a[high] :
+                low -= 1
+                high +=1
+
+                if a[low] == a[high] :
+                    palindrome = ''.join(a[low] + palindrome + a[high])
+
+                else:
+                    break
 
     return palindrome
 
 # Test
-print question2("93138")
-# Should return 313
-print question2("696531358")
-# Should return 53135
-print question2("")
+# print question2("696531358")
+# # Should return 53135
+# print question2("05914418")
+# # Should return 1441
+# print question2("")
 # Should return ""
 
 
@@ -141,7 +161,7 @@ def question3(G):
 G = {'A': [('B', 2)],
      'B': [('A', 2), ('C', 5)],
      'C': [('B', 5)]}
-print question3(G)
+# print question3(G)
 # Should return {'A': [('B', 2)],
 #                'B': [('A', 2), ('C', 5)],
 #                'C': [('B', 5)]}
@@ -156,7 +176,7 @@ G = {'A': [('D', 2), ('E', 4)],
      'G': [('C', 6), ('E', 2), ('F', 4)],
      'H': [('E', 2)]}
 
-print question3(G)
+# print question3(G)
 # Should return {'A': [('D', 2), ('E', 4)],
 #                'B': [('F', 3)],
 #                'C': [('F', 4)],
@@ -166,7 +186,7 @@ print question3(G)
 #                'G': [('E', 2), ('F', 4)],
 #                'H': [('E', 2)]}
 
-print question3(None)
+# print question3(None)
 
 '''Question 4'''
 def question4(T, r, n1, n2):
@@ -198,30 +218,30 @@ def question4(T, r, n1, n2):
         return n1
 
 # Test
-print question4([[0, 1, 0, 0, 0],
-                [0, 0, 1, 0, 0],
-                [0, 0, 0, 0, 0],
-                [1, 0, 0, 0, 1],
-                [0, 0, 0, 0, 0]],
-                3,
-                1,
-                4)
+# print question4([[0, 1, 0, 0, 0],
+#                 [0, 0, 1, 0, 0],
+#                 [0, 0, 0, 0, 0],
+#                 [1, 0, 0, 0, 1],
+#                 [0, 0, 0, 0, 0]],
+#                 3,
+#                 1,
+#                 4)
 # Should return 3
 
-print question4([[0, 0, 0, 0, 0, 0, 0, 0],
-                 [0, 0, 0, 0, 0, 0, 0, 0],
-                 [0, 0, 0, 0, 0, 0, 0, 0],
-                 [1, 0, 0, 0, 1, 0, 0, 0],
-                 [0, 1, 0, 0, 0, 0, 0, 0],
-                 [0, 0, 0, 1, 0, 0, 1, 0],
-                 [0, 0, 1, 0, 0, 0, 0, 1],
-                 [0, 0, 0, 0, 0, 0, 0, 0]],
-                 5,
-                 6,
-                 2)
+# print question4([[0, 0, 0, 0, 0, 0, 0, 0],
+#                  [0, 0, 0, 0, 0, 0, 0, 0],
+#                  [0, 0, 0, 0, 0, 0, 0, 0],
+#                  [1, 0, 0, 0, 1, 0, 0, 0],
+#                  [0, 1, 0, 0, 0, 0, 0, 0],
+#                  [0, 0, 0, 1, 0, 0, 1, 0],
+#                  [0, 0, 1, 0, 0, 0, 0, 1],
+#                  [0, 0, 0, 0, 0, 0, 0, 0]],
+#                  5,
+#                  6,
+#                  2)
 # Should return 2
 
-print question4([], 1, 0, 0)
+# print question4([], 1, 0, 0)
 # Should return "Input is an empty tree"
 
 '''Question 5'''
@@ -277,9 +297,9 @@ linked.append(n3)
 linked.append(n4)
 linked.append(n5)
 
-print question5(n1, 2, linked)
-# Should return 1
-print question5(n1, 5, linked)
-# Should return 5
-print question5(n1, 6, linked)
+# print question5(n1, 2, linked)
+# # Should return 1
+# print question5(n1, 5, linked)
+# # Should return 5
+# print question5(n1, 6, linked)
 # Should return "Not a valid input. Choose a smaller m value."

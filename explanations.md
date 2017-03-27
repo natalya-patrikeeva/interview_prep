@@ -2,13 +2,27 @@
 
 ### 1.
 
-To efficiently generate anagrams of input string `t`, I used itertools package and list comprehensions. The algorithm first generates a list of all possible character permutations of string letters given the input string. Then we loop over this list to check if any element is a substring of input `s`. The algorithm's efficiency is `O(n*n!)` where `n` is the length of input string `t`. For example, if `t` is `"ad"`, then generating anagrams is `O(2*2)= O(4)`. In the worst case, the space efficiency is storing two lists with n! elements long to store anagrams of input string but the average case would be a shorter substring t anagrams which would take much less space than n! elements.
+To check if an anagram of input string t is a substring of s, I first store letter counts in t using Counter from collections. All anagrams of input string t have the same letter count. Checking to see if a substring of s have the same letter count as letter counts in t would find an anagram. So, I generate all consecutive substrings of s and check to see if the letter count matches in t and substrings of s. In the worst case, the algorithm rumtime efficiency is O(len(s)) if we have to loop through all consecutive substrings of s. Space effieciency is constant O(1) because we store letters' counts in a dictionary with at most 26 letters.
 
 ### 2.
 
-First, I convert the input string `a` into a list of its letters and generate substrings of input string by combining adjacent letters into a longer and longer elements. For example, if input `a` is `"93138"`, I generate the list of elements to look like `['93','931','9313','93138']`, then shorter list starting from the second element, such as `['31','313','3138']`, and so on. After I generate all the possible substrings, I check if a substring is in fact palindromic by comparing from the beginning and the end of the string and storing the string if it is a palindrom. I compare the size of the palindromatic substring to the newly found palindromic string, keep and return the longest.
+To find the longest palindromic substring in an input string a, I loop through the string and loop for even and odd palindromic substrings. To find odd palindromes, I loop over the string and check if neighboring elements are the same. If they are, I check if their neighbors are also the same, progressively increasing the length of the palindrome. To find even palindromes, I check to see if any adjacent elements are the same. Then, expand outward if they are to find the longest palindromic substring in a. The algorithm's time efficiency is O(n^2) because we loop over n elements of the input string and also search through the string for the longest substring. The space efficiency of the algorithm does not require any additional data structures, so it is constant, O(1).
 
-The efficiency of the algorithm is `O(n<sup>3</sup>)`, where `n` is the length of input string because of the three `for` loops over `n` elements to generate all the possible substrings and check if they are palindromic. The space efficiency of the algorithm requires storing a list of length n and two temporary lists of size n. So, space efficiency is also O(3n) which can be approximated as O(n).
+
+
+**Note about the review.** The comment on my code for question 2 from the reviewer was not really a comment about my code and it did not really make sense. When I google searched "longest palindromic substring", I found the website where the reviewer just copied and pasted the text from as a comment on my code. I do not think that is ethical or helpful to a student. Copying a desciption from a website does not help me improve the efficiency of my code or my understanding. This is really disappointing and I expected more from the technical review. 
+
+The reviewer's comment:
+
+"We can find the longest palindrome substring in O(n^2) time with O(1) extra space. The idea is to generate all even length and odd length palindromes and keep track of the longest palindrome seen so far.
+Step to generate odd length palindrome:
+Fix a centre and expand in both directions for longer palindromes.
+Step to generate even length palindrome
+Fix two centre ( low and high ) and expand in both directions for longer palindromes."
+
+The website: http://www.geeksforgeeks.org/longest-palindromic-substring-set-2/
+
+
 
 ### 3.
 
