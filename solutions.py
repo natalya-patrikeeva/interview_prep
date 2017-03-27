@@ -7,33 +7,37 @@ def question1(s, t):
     Inputs: strings s, t
     Output: True or False
     '''
-    # Create a dictionary to store letter counts in t
-    t = list(t)
-    counts_t = Counter(t)
-
-    # Possible substrings of s of varying lengths
-    s_substrings = []
-    for ii in range(0, len(s)):
-        string = s[ii:]
-        for i in range(1, len(string)+1):
-            s_substrings.append(string[:i])
-
-    # Compare counts of letters in t and in substrings of s
-    # If the count is the same, t is an anagram of a substring of s
-    for s in s_substrings:
-        if counts_t == Counter(s):
-            return True
+    # Check to see if input string is valid
+    if t == None or s == None:
+        return "Not a valid input. Please try with a valid string."
     else:
-        return False
+
+        # Create a dictionary to store letter counts in t
+        t = list(t)
+        counts_t = Counter(t)
+
+        # Possible substrings of s of varying lengths
+        s_substrings = []
+        for ii in range(0, len(s)):
+            string = s[ii:]
+            for i in range(1, len(string)+1):
+                s_substrings.append(string[:i])
+
+        # Compare counts of letters in t and in substrings of s
+        # If the count is the same, t is an anagram of a substring of s
+        for s in s_substrings:
+            if counts_t == Counter(s):
+                return True
+        else:
+            return False
 
 # Test
 print question1("udacity", "ad")
 # Should return True
-print question1("udacity", "g")
-# Should return False
 print question1("udacity", "")
 # Should return False
-
+print question1("udacity", None)
+# Should return "Not a valid input. Please try with a valid string."
 
 '''Question 2'''
 def question2(a) :
@@ -42,47 +46,52 @@ def question2(a) :
      Input: string a
      Output: longest palindromic substring in a'''
 
-    # Odd palindromes
-    # Loop over centers
-    palindrome = ''
-    low = 0
-    high = 0
-    for i in range(1, len(a)-1):
+    # Check if input is a character string
+    if not isinstance(a, basestring):
+        return "Not a valid input. a must be a string."
+    else:
+
         # Odd palindromes
-        low = i-1
-        center = a[i]
-        high = i+1
+        # Loop over centers
+        palindrome = ''
+        low = 0
+        high = 0
+        for i in range(1, len(a)-1):
+            # Odd palindromes
+            low = i-1
+            center = a[i]
+            high = i+1
 
-        if a[low] == a[high] :
-            palindrome = ''.join(a[low] + center + a[high])
+            if a[low] == a[high] :
+                palindrome = ''.join(a[low] + center + a[high])
 
-            while low > 0 and high <= len(a) and a[low] == a[high] :
+                while low > 0 and high <= len(a) and a[low] == a[high] :
 
-                low -= 1
-                high +=1
+                    low -= 1
+                    high +=1
 
-                if a[low] == a[high] :
-                    palindrome = ''.join(a[low] + palindrome + a[high])
-                else:
-                    break
+                    if a[low] == a[high] :
+                        palindrome = ''.join(a[low] + palindrome + a[high])
+                    else:
+                        break
 
-        # Even palindromes
-        low = i-1
-        high = i
+            # Even palindromes
+            low = i-1
+            high = i
 
-        if a[low] == a[high]:
-            palindrome = ''.join(a[low] + a[high])
-            while low > 0 and high <= len(a) and a[low] == a[high] :
-                low -= 1
-                high +=1
+            if a[low] == a[high]:
+                palindrome = ''.join(a[low] + a[high])
+                while low > 0 and high <= len(a) and a[low] == a[high] :
+                    low -= 1
+                    high +=1
 
-                if a[low] == a[high] :
-                    palindrome = ''.join(a[low] + palindrome + a[high])
+                    if a[low] == a[high] :
+                        palindrome = ''.join(a[low] + palindrome + a[high])
 
-                else:
-                    break
+                    else:
+                        break
 
-    return palindrome
+        return palindrome
 
 # Test
 print question2("696531358")
@@ -91,7 +100,7 @@ print question2("05914418")
 # Should return 1441
 print question2("")
 # Should return ""
-
+print question2(101)
 
 '''Question 3'''
 def question3(G):
@@ -158,15 +167,6 @@ def question3(G):
         return Ans
 
 # Test
-G = {'A': [('B', 2)],
-     'B': [('A', 2), ('C', 5)],
-     'C': [('B', 5)]}
-print question3(G)
-# Should return {'A': [('B', 2)],
-#                'B': [('A', 2), ('C', 5)],
-#                'C': [('B', 5)]}
-
-
 G = {'A': [('D', 2), ('E', 4)],
      'B': [('D', 6), ('F', 3)],
      'C': [('F', 4), ('G', 6)],
@@ -189,17 +189,31 @@ print question3(G)
 print question3(None)
 # Should return None
 
+G = {}
+print question3(G)
+# Should return None
+
 '''Question 4'''
 def question4(T, r, n1, n2):
     '''Find the least common ancestor between two nodes
      on a binary search tree.'''
 
+    # Check if input tree is empty
     if T == []:
         return "Input is an empty tree"
-    else:
 
+    # Check if input nodes are in valid range
+    elif r > len(T) or len(T) < n1 or n1 < 0 or len(T) < n1 or n1 < 0:
+        return "Input nodes are not valid."
+
+    # All inputs are valid
+    else:
+        # Check if input nodes are on opposite sides of the root
+        # if they are, the least common ancestor is the root node
         if ( n1 > r and r > n2 ) or ( n1 < r and r < n2):
             return r
+
+        # input nodes are on the same side of the root
         else:
 
             while n1 < r and n2 < r:
@@ -215,7 +229,6 @@ def question4(T, r, n1, n2):
                     if i > r and e == 1:
                         r = i
             return r
-
 
 # Test
 print question4([[0, 1, 0, 0, 0],
@@ -244,6 +257,16 @@ print question4([[0, 0, 1, 0, 0, 0, 0, 0],
 print question4([], 1, 0, 0)
 # Should return "Input is an empty tree"
 
+print question4([[0, 1, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [1, 0, 0, 0, 1],
+                [0, 0, 0, 0, 0]],
+                8,
+                1,
+                4)
+# Should return "Input nodes are not valid."
+
 '''Question 5'''
 class Node(object):
   def __init__(self, data):
@@ -252,27 +275,32 @@ class Node(object):
 
 # def question5(ll, m):
 # For testing, pass a linked list as an argument
-def question5(ll, m, list):
+def question5(ll, m, linked_list):
 
     '''Finds the element in a singly linked list that's m elements from the end.
     Return the value of the node at that position.'''
 
-    # Find the length of the linked list by traversing to the end
-    current = ll
-    ll_length = 1
-    while current.next:
-        current = current.next
-        ll_length += 1
+    # Check if the linked list is None
+    if linked_list == None:
+        return "Input linked list is None."
+    else:
 
-    if m > ll_length:
-        return "Not a valid input. Choose a smaller m value."
+        # Find the length of the linked list by traversing to the end
+        current = ll
+        ll_length = 1
+        while current.next:
+            current = current.next
+            ll_length += 1
 
-    # Traverse the list up to ( length of the list - m ) elements
-    current = ll
-    for i in range(0, (ll_length - m ) ):
-        current = current.next
+        if m > ll_length:
+            return "Not a valid input. Choose a smaller m value."
 
-    return current.data
+        # Traverse the list up to ( length of the list - m ) elements
+        current = ll
+        for i in range(0, (ll_length - m ) ):
+            current = current.next
+
+        return current.data
 
 
 # Test
@@ -308,5 +336,7 @@ print question5(n1, 2, linked)
 # Should return 1
 print question5(n1, 5, linked)
 # Should return 5
+print question5(n1, 5, None)
+# Should return "Input linked list is None."
 print question5(n1, 6, linked)
 # Should return "Not a valid input. Choose a smaller m value."
