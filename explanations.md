@@ -26,12 +26,20 @@ The website: http://www.geeksforgeeks.org/longest-palindromic-substring-set-2/
 
 ### 3.
 
-To find the minimum spanning tree in a weighted undirected graph, I implement Prim's algorithm to traverse every node and edge at least once, following this [visualization](https://www.cs.usfca.edu/~galles/visualization/Prim.html). I keep track of what nodes are visited, the weights and the path from one node to another. I loop over all the nodes until we visit all the vertices and edges. The weights are stored in an array and searching through the array for the edge with the minimum weight requires O (|V|<sup>2</sup>) runtime, where V is the number of nodes in the graph. The algorithm requires keeping track of which nodes are known, their weights and the path to the neighbors for each node. I keep these values in three lists of size V. From the input dictionary, I make another list with nodes to loop through while updating the known list. To return a minimum spanning tree, I make a dictionary with at most V keys but on average, with less than V elements. So, space efficience is O(5*V) which can be approximated as O(V).
+To find the minimum spanning tree in a weighted undirected graph, I implement Prim's algorithm to traverse every node and edge at least once, following this [visualization](https://www.cs.usfca.edu/~galles/visualization/Prim.html). I keep track of what nodes are visited, the weights and the path from one node to another. I loop over all the nodes until we visit all the vertices and edges. The weights are stored in an array and searching through the array for the edge with the minimum weight requires O (n^2) runtime, where n is the number of nodes in the graph. The algorithm requires keeping track of which nodes are known, their weights and the path to the neighbors for each node. I keep these values in three lists of size n. From the input dictionary, I make another list with nodes to loop through while updating the known list. To return a minimum spanning tree, I make a dictionary with at most n keys but on average, with less than n elements. So, space complexity is O(5*n) which can be approximated as O(n).
+
+
 
 #### 4.
 
-To find the least common ancestor on a BST, I search through the input matrix to find all parents of input nodes and store them in two lists. The root node is appended last. Then I compare entries in the lists to output the earliest common node which is the least common ancestor of two nodes. The efficiency of the algorithm is O (n<sup>2</sup>) because of the two `for` loops over the rows and columns of the input matrix. I make two lists to store input nodes' ancestors, which in the worst case is length (n-1). So, space efficiency is O(2n), which cab be approximated as O(n).
+To find the least common ancestor on a BST, I compare the input node values to the root value. If the nodes are on opposite sides of the root, the least common ancestor is the root. If the nodes are on the same side of the root, I traverse the tree down, comparing the root's child value to the nodes and if the nodes are on the same or opposite sides, and so on. The algoirthm stops when the nodes are on opposite sides which means that the node they are compared to is their least common ancestor. The efficiency of the algorithm is O(n) because in the worse case, we need to search all the nodes in the tree. Because we do not make any extra data structures, the space complexity is O(1). 
+
+
+
+**Note about the review.** The reviewer suggests checking if the nodes are present in the tree. However, I did not implement this check because the question explicitly state "You can assume that both nodes are in the tree, and the tree itself adheres to all BST properties."
+
+
 
 ### 5.
 
-To find the element that is `m` elements from the end of a singly linked list, I loop over the linked list once to write the values of the elements to a Python list. Then I find the element's value based on the length of the list and the input `m` value. The runtime efficiency of the algorithm is O(n) where n is the number of elements in the linked list. I store nodes' values in a list with size n. So, space efficiency is O(n). 
+To find the element that is m elements from the end of a singly linked list, I loop over the linked list once to find the length of the linked list. Then I traverse the linked list up to m elements from the end based on the length of the list and input value of m. The runtime efficiency of the algorithm is O(n) where n is the number of elements in the linked list. I do not use any extra data structures, so space efficiency is constant, O(1). 

@@ -27,11 +27,11 @@ def question1(s, t):
         return False
 
 # Test
-# print question1("udacity", "ad")
-# # Should return True
-# print question1("udacity", "g")
-# # # Should return False
-# print question1("udacity", "")
+print question1("udacity", "ad")
+# Should return True
+print question1("udacity", "g")
+# Should return False
+print question1("udacity", "")
 # Should return False
 
 
@@ -85,11 +85,11 @@ def question2(a) :
     return palindrome
 
 # Test
-# print question2("696531358")
-# # Should return 53135
-# print question2("05914418")
-# # Should return 1441
-# print question2("")
+print question2("696531358")
+# Should return 53135
+print question2("05914418")
+# Should return 1441
+print question2("")
 # Should return ""
 
 
@@ -161,7 +161,7 @@ def question3(G):
 G = {'A': [('B', 2)],
      'B': [('A', 2), ('C', 5)],
      'C': [('B', 5)]}
-# print question3(G)
+print question3(G)
 # Should return {'A': [('B', 2)],
 #                'B': [('A', 2), ('C', 5)],
 #                'C': [('B', 5)]}
@@ -176,7 +176,7 @@ G = {'A': [('D', 2), ('E', 4)],
      'G': [('C', 6), ('E', 2), ('F', 4)],
      'H': [('E', 2)]}
 
-# print question3(G)
+print question3(G)
 # Should return {'A': [('D', 2), ('E', 4)],
 #                'B': [('F', 3)],
 #                'C': [('F', 4)],
@@ -186,7 +186,8 @@ G = {'A': [('D', 2), ('E', 4)],
 #                'G': [('E', 2), ('F', 4)],
 #                'H': [('E', 2)]}
 
-# print question3(None)
+print question3(None)
+# Should return None
 
 '''Question 4'''
 def question4(T, r, n1, n2):
@@ -196,52 +197,51 @@ def question4(T, r, n1, n2):
     if T == []:
         return "Input is an empty tree"
     else:
-        n1_list = []
-        n2_list = []
-        while n1 != n2:
 
-            for i in range(len(T)):
-                for ii, v in enumerate(T[i]):
-                    # find parents of n1 and n2
-                    if ii == n1 and v == 1:
-                        n1 = i
-                        n1_list.append(n1)
-                    if ii == n2 and v == 1:
-                        n2 = i
-                        n2_list.append(n2)
+        if ( n1 > r and r > n2 ) or ( n1 < r and r < n2):
+            return r
+        else:
 
-        # Search for least common ancestor
-        for n in n1_list:
-            if n in n2_list:
-                n1 = n
-                break
-        return n1
+            while n1 < r and n2 < r:
+                for i, e in enumerate(T[r]):
+                    # both nodes are on the left side of the root
+                    if i < r and e == 1:
+                        r = i
+            return r
+
+            while n1 > r and n2 > r:
+                for i, e in enumerate(T[r]):
+                    # both nodes are on the right side of the root
+                    if i > r and e == 1:
+                        r = i
+            return r
+
 
 # Test
-# print question4([[0, 1, 0, 0, 0],
-#                 [0, 0, 1, 0, 0],
-#                 [0, 0, 0, 0, 0],
-#                 [1, 0, 0, 0, 1],
-#                 [0, 0, 0, 0, 0]],
-#                 3,
-#                 1,
-#                 4)
+print question4([[0, 1, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [1, 0, 0, 0, 1],
+                [0, 0, 0, 0, 0]],
+                3,
+                1,
+                4)
 # Should return 3
 
-# print question4([[0, 0, 0, 0, 0, 0, 0, 0],
-#                  [0, 0, 0, 0, 0, 0, 0, 0],
-#                  [0, 0, 0, 0, 0, 0, 0, 0],
-#                  [1, 0, 0, 0, 1, 0, 0, 0],
-#                  [0, 1, 0, 0, 0, 0, 0, 0],
-#                  [0, 0, 0, 1, 0, 0, 1, 0],
-#                  [0, 0, 1, 0, 0, 0, 0, 1],
-#                  [0, 0, 0, 0, 0, 0, 0, 0]],
-#                  5,
-#                  6,
-#                  2)
-# Should return 2
+print question4([[0, 0, 1, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 1, 0, 0, 0, 0, 0, 0],
+                 [1, 0, 0, 0, 1, 0, 0, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 0],
+                 [0, 0, 0, 1, 0, 0, 1, 0],
+                 [0, 0, 0, 0, 0, 0, 0, 1],
+                 [0, 0, 0, 0, 0, 0, 0, 0]],
+                 5,
+                 4,
+                 0)
+# Should return 3
 
-# print question4([], 1, 0, 0)
+print question4([], 1, 0, 0)
 # Should return "Input is an empty tree"
 
 '''Question 5'''
@@ -257,16 +257,23 @@ def question5(ll, m, list):
     '''Finds the element in a singly linked list that's m elements from the end.
     Return the value of the node at that position.'''
 
-    stack = []
+    # Find the length of the linked list by traversing to the end
     current = ll
+    ll_length = 1
     while current.next:
-        stack.append(current.data)
         current = current.next
-    stack.append(current.data)
-    if m > len(stack):
+        ll_length += 1
+
+    if m > ll_length:
         return "Not a valid input. Choose a smaller m value."
 
-    return stack[ len(stack) - m ]
+    # Traverse the list up to ( length of the list - m ) elements
+    current = ll
+    for i in range(0, (ll_length - m ) ):
+        current = current.next
+
+    return current.data
+
 
 # Test
 # For testing, create a linked list class
@@ -297,9 +304,9 @@ linked.append(n3)
 linked.append(n4)
 linked.append(n5)
 
-# print question5(n1, 2, linked)
-# # Should return 1
-# print question5(n1, 5, linked)
-# # Should return 5
-# print question5(n1, 6, linked)
+print question5(n1, 2, linked)
+# Should return 1
+print question5(n1, 5, linked)
+# Should return 5
+print question5(n1, 6, linked)
 # Should return "Not a valid input. Choose a smaller m value."
