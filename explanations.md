@@ -8,37 +8,13 @@ To check if an anagram of input string t is a substring of s, I first store lett
 
 To find the longest palindromic substring in an input string a, I loop through the string and loop for even and odd palindromic substrings. To find odd palindromes, I loop over the string and check if neighboring elements are the same. If they are, I check if their neighbors are also the same, progressively increasing the length of the palindrome. To find even palindromes, I check to see if any adjacent elements are the same. Then, expand outward if they are to find the longest palindromic substring in a. The algorithm's time efficiency is O(n^2) because we loop over n elements of the input string and also search through the string for the longest substring. The space efficiency of the algorithm does not require any additional data structures, so it is constant, O(1).
 
-
-
-**Note about the review.** The comment on my code for question 2 from the reviewer was not really a comment about my code and it did not really make sense. When I google searched "longest palindromic substring", I found the website where the reviewer just copied and pasted the text from as a comment on my code. I do not think that is ethical or helpful to a student. Copying a desciption from a website does not help me improve the efficiency of my code or my understanding. This is really disappointing and I expected more from the technical review. 
-
-The reviewer's comment:
-
-"We can find the longest palindrome substring in O(n^2) time with O(1) extra space. The idea is to generate all even length and odd length palindromes and keep track of the longest palindrome seen so far.
-Step to generate odd length palindrome:
-Fix a centre and expand in both directions for longer palindromes.
-Step to generate even length palindrome
-Fix two centre ( low and high ) and expand in both directions for longer palindromes."
-
-The website: http://www.geeksforgeeks.org/longest-palindromic-substring-set-2/
-
-
-
 ### 3.
 
 To find the minimum spanning tree in a weighted undirected graph, I implement Prim's algorithm to traverse every node and edge at least once, following this [visualization](https://www.cs.usfca.edu/~galles/visualization/Prim.html). I keep track of what nodes are visited, the weights and the path from one node to another. I loop over all the nodes until we visit all the vertices and edges. The weights are stored in an array and searching through the array for the edge with the minimum weight requires O (n^2) runtime, where n is the number of nodes in the graph. The algorithm requires keeping track of which nodes are known, their weights and the path to the neighbors for each node. I keep these values in three lists of size n. From the input dictionary, I make another list with nodes to loop through while updating the known list. To return a minimum spanning tree, I make a dictionary with at most n keys but on average, with less than n elements. So, space complexity is O(5*n) which can be approximated as O(n).
 
-
-
 #### 4.
 
 To find the least common ancestor on a BST, I compare the input node values to the root value. If the nodes are on opposite sides of the root, the least common ancestor is the root. If the nodes are on the same side of the root, I traverse the tree down, comparing the root's child value to the nodes and if the nodes are on the same or opposite sides, and so on. The algoirthm stops when the nodes are on opposite sides which means that the node they are compared to is their least common ancestor. The efficiency of the algorithm is O(n) because in the worse case, we need to search all the nodes in the tree. Because we do not make any extra data structures, the space complexity is O(1). 
-
-
-
-**Note about the review.** The reviewer suggests checking if the nodes are present in the tree. However, I did not implement this check because the question explicitly state "You can assume that both nodes are in the tree, and the tree itself adheres to all BST properties."
-
-
 
 ### 5.
 
